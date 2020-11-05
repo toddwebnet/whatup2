@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/ping/{host}', [\App\Http\Controllers\HostController::class, 'ping']);
+Route::get('/pong', [\App\Http\Controllers\HostController::class, 'pong']);

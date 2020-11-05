@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  ### workspace (for tinkering)  ##########################################
+  workspace:
+    restart: always
+    build:
+      context: ${DOCKER_PATH}/workspace
+      args:
+        - PHP_DOCKERFILE_SOURCE=${PHP_DOCKERFILE_SOURCE}
+    volumes:
+      - ${APP_PATH}:/var/www
+    tty: true
+    networks:
+      - network
+
+  whatup:
+    restart: always
+    build:
+      context: ${DOCKER_PATH}/nginx
+      args:
+        - PHP_UPSTREAM_CONTAINER=${PHP_UPSTREAM_CONTAINER}
+        - PHP_UPSTREAM_PORT=${PHP_UPSTREAM_PORT}
+    volumes:
+      - ${APP_PATH}/docker/_devops/nginx/whatup.conf:/etc/nginx/sites-available/default.conf
+      - ./nginx/ssl/:/etc/nginx/ssl
+      - ${APP_PATH}:/var/www
+    ports:
+      - "80:80"
+    depends_on:
+      - php-fpm
+    networks:
+      - network
+
+  php-fpm:
+    restart: always
+    build:
+      context: ${DOCKER_PATH}/php-fpm
+      args:
+        - PHP_FPM_DOCKERFILE_SOURCE=${PHP_FPM_DOCKERFILE_SOURCE}
+        - PHP_UPSTREAM_PORT=${PHP_UPSTREAM_PORT}
+    volumes:
+      - ${APP_PATH}:/var/www
+    expose:
+      - "9000"
+    networks:
+      - network
+
+networks:
+  network:
+    driver: ${NETWORKS_DRIVER}
