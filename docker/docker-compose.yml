@@ -27,7 +27,7 @@ services:
       - ./nginx/ssl/:/etc/nginx/ssl
       - ${APP_PATH}:/var/www
     ports:
-      - "80:80"
+      - "8675:8675"
     depends_on:
       - php-fpm
     networks:
