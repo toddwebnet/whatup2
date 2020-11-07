@@ -10,7 +10,7 @@ class Host extends Model
     public function toArray()
     {
         return [
-                'datetime' => date("Y-m-d i:h a", $this->last_ping)
+                'datetime' => date("Y-m-d H:i a", $this->last_ping)
             ] +
             parent::toArray();
     }
