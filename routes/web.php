@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::get('/ping/{host}', [\App\Http\Controllers\HostController::class, 'ping']);
 Route::get('/pong', [\App\Http\Controllers\HostController::class, 'pong']);
+Route::get('/check', [\App\Http\Controllers\HostController::class, 'check']);

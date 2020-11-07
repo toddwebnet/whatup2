@@ -33,7 +33,12 @@ class HostController
     public function pong()
     {
         return Artisan::call('check:outages');
+    }
 
-
+    public function check()
+    {
+        print_r(
+            Host::orderby('timestamp')->get()->toArray()
+        );
     }
 }
