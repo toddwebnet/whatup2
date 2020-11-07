@@ -37,8 +37,8 @@ class HostController
 
     public function check()
     {
-        print_r(
+        return
             Host::orderby('timestamp')->get()->toArray()
-        );
+        ;
     }
 }
