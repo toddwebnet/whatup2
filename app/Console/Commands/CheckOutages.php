@@ -13,6 +13,7 @@ class CheckOutages extends Command
 
     public function handle()
     {
+        $this->line('checking');
         $time = time();
         foreach (Host::where('status', 'up')->get() as $host) {
             $minutes = round(($time - $host->last_ping) / 60, 0);

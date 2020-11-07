@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Host;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 
 class HostController
 {
@@ -31,13 +32,7 @@ class HostController
 
     public function pong()
     {
-        $t = time();
-        $d1 = new Carbon(1604608853);
-        $d2 = new Carbon($t);
-
-        $diff = $d1->diff($d2);
-        $d = $t-1604608853;
-        $minutes = $d/60;
+        return Artisan::call('check:outages');
 
 
     }
