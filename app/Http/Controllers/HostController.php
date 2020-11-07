@@ -38,7 +38,7 @@ class HostController
     public function check()
     {
         return
-            Host::orderby('timestamp')->get()->toArray()
+            json_encode(Host::orderby('timestamp')->get()->toArray(), JSON_PRETTY_PRINT);
         ;
     }
 }
